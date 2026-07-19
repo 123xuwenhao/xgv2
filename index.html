@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>xgv.netlify.app</title>
+<style>
+  :root {
+    --bg: #0e1014;
+    --accent: #ff7a45;
+    --accent2: #ffb347;
+    --text: #f5f6f8;
+    --muted: #9aa0ad;
+    --card: rgba(255, 255, 255, .06);
+    --border: rgba(255, 255, 255, .12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: radial-gradient(1200px 620px at 50% -8%, #1c2230 0%, var(--bg) 60%);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* ===== Hero ===== */
+  .hero { text-align: center; padding: 64px 0 32px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px; letter-spacing: 2px;
+    color: var(--accent2);
+    border: 1px solid var(--border);
+    padding: 4px 14px; border-radius: 999px;
+    margin-bottom: 18px; background: var(--card);
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 46px); font-weight: 800; line-height: 1.2;
+    background: linear-gradient(90deg, #fff, var(--accent2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 14px;
+  }
+  .hero p.lead {
+    color: var(--muted); max-width: 640px; margin: 0 auto 28px; font-size: 16px;
+  }
+
+  /* ===== 顶部 banner 图片占位 ===== */
+  .banner-ph {
+    width: 100%; aspect-ratio: 21 / 9; border-radius: 18px;
+    border: 1px dashed var(--border);
+    background:
+      linear-gradient(135deg, rgba(255,122,69,.12), rgba(255,179,71,.06)),
+      repeating-linear-gradient(45deg, #171b24 0 14px, #141821 14px 28px);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 14px; margin-bottom: 14px; overflow: hidden;
+  }
+  .banner-ph img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .banner-ph .tag { background: rgba(0,0,0,.35); padding: 6px 12px; border-radius: 8px; }
+
+  /* ===== 肌肉照占位 ===== */
+  .muscles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 26px 0 8px; }
+  .muscle-card {
+    aspect-ratio: 1 / 1.15; border-radius: 16px; border: 1px solid var(--border);
+    background: linear-gradient(160deg, #222838, #151921);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--muted); position: relative; overflow: hidden;
+  }
+  .muscle-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+  .muscle-card .emoji { font-size: 40px; opacity: .5; margin-bottom: 8px; }
+  .muscle-card .cap { font-size: 12px; }
+  .muscle-card::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 40%, rgba(255,179,71,.10) 100%);
+    pointer-events: none;
+  }
+
+  /* ===== 文案占位块 ===== */
+  .copy {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 22px 24px; margin: 30px 0; font-size: 15px; color: #d7dbe2;
+  }
+  .copy .ph-label { color: var(--accent2); font-weight: 700; margin-right: 6px; }
+
+  /* ===== CTA 按钮 ===== */
+  .cta { display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 12px auto 60px; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px 22px; border-radius: 14px; font-size: 17px; font-weight: 700;
+    text-decoration: none; color: #1a1205; cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    border: none;
+  }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 10px 30px rgba(255,122,69,.35);
+  }
+  .btn-ghost { background: rgba(255,255,255,.10); color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: rgba(255,255,255,.16); }
+  .btn .arrow { font-size: 18px; }
+
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 24px 0 40px; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 44px 0 24px; }
+    .muscles { gap: 8px; }
+    .muscle-card .emoji { font-size: 28px; }
+    .muscle-card .cap { font-size: 11px; }
+  }
+</style>
+<!-- 百度统计：把 YOUR_BAIDU_TONGJI_TOKEN 替换成百度统计后台「获取代码」中 hm.js? 后面的站点 token -->
+<script>
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?686787a1905b52f21c33ecddf335e89c";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+</head>
+<body>
+  <div class="wrap">
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <span class="eyebrow">专属你的 GV 视界</span>
+      <h1>为热爱生活的你，打开GV会员世界</h1>
+      <p class="lead">
+        一同看GV会员太贵？我们通过技术渠道获得了可用免费账号，现开放共享。先点下方橙色按钮预览样片，确认内容后返回，点击“免费领取VIP账户”即可畅看全站。技术资源，且用且珍惜。
+      </p>
+
+      <!-- 顶部横幅图片占位：把下面 .tag 换成 <img> 或给 .banner-ph 设 background-image 即可 -->
+      <div class="banner-ph">
+        <img src="img/5.jpg" alt="banner" onload="this.style.display='block';this.previousElementSibling.style.display='none'">
+      </div>
+    </section>
+
+    <!-- ===== 肌肉照占位（3 张）===== -->
+    <section class="muscles">
+      <div class="muscle-card">
+        <img src="img/11.jpg" alt="肌肉照1" onload="this.style.display='block';this.parentElement.querySelector('.emoji,.cap').style.display='none'">
+      </div>
+      <div class="muscle-card">
+        <img src="img/21.jpg" alt="肌肉照1" onload="this.style.display='block';this.parentElement.querySelector('.emoji,.cap').style.display='none'">
+      </div>
+      <div class="muscle-card">
+        <img src="img/31.jpg" alt="肌肉照1" onload="this.style.display='block';this.parentElement.querySelector('.emoji,.cap').style.display='none'">
+      </div>
+    </section>
+
+    <!-- ===== 文案占位块 ===== -->
+    <section class="copy">
+      <span class="ph-label">【使用方法】</span>
+      ① 点这里先看样片，心里有数；
+② 领个免费VIP号，随便看；
+③ 觉得好用？点这返回租号，正式上车！
+    </section>
+
+    <!-- ===== 三个 CTA 按钮 ===== -->
+    <nav class="cta">
+      <a class="btn btn-primary" href="https://yuque.com/u1098648/kb/exm8619fve0z91g1?singleDoc#%20《先看我》" target="_blank" rel="noopener">
+        立即体验一同看GV <span class="arrow">→</span>
+      </a>
+      <a id="btnFree" class="btn btn-ghost" href="http://134.175.168.47/free-account" target="_blank" rel="noopener">
+        免费领取VIP账户 <span class="arrow">→</span>
+      </a>
+      <a id="btnRent" class="btn btn-ghost" href="http://134.175.168.47" target="_blank" rel="noopener">
+        我要租号 <span class="arrow">→</span>
+      </a>
+    </nav>
+
+    <footer>© 专属你的 GV 视界 · 尽情畅飞</footer>
+  </div>
+
+  <script>
+    // 引导页若通过分享链接带 ?invite= 进入，把邀请码透传到主站按钮，保持邀请关系
+    (function () {
+      var invite = new URLSearchParams(location.search).get('invite');
+      if (!invite) return;
+      var free = document.getElementById('btnFree');
+      var rent = document.getElementById('btnRent');
+      if (free) free.href = 'http://134.175.168.47/free-account?invite=' + encodeURIComponent(invite);
+      if (rent) rent.href = 'http://134.175.168.47/?invite=' + encodeURIComponent(invite);
+    })();
+  </script>
+</body>
+</html>
